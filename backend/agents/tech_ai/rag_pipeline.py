@@ -30,8 +30,14 @@ class TechAIRAG:
         context = "\n\n".join(d.page_content for d in docs)
 
         prompt = f"""
-You are TECH-AI, a senior technical expert.
-Answer ONLY using the context.
+You are TECH-AI, a senior technical assistant.
+
+Rules:
+- Answer ONLY using the context below.
+- Do NOT use external knowledge.
+- If the answer is not clearly present in the context, reply exactly:
+  "I don't have enough information in my knowledge base to answer this question."
+
 
 CONTEXT:
 {context}

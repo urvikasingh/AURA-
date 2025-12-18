@@ -12,13 +12,14 @@ The architecture is designed to be **extensible**, allowing new agents (SQL, Res
 
 ## Current Status (v0.1)
 
-✅ FastAPI backend running reliably
-✅ Modular agent-based architecture
-✅ RAG pipeline implemented with semantic retrieval
-✅ FAISS vector database connected and queryable
-✅ External Microsoft SQL Server used for structured data storage
-✅ Google Gemini LLM integrated for response generation
-⚠️ `.env` intentionally inactive (system environment variables preferred on Windows)
+✅ FastAPI backend running reliably.
+✅ Modular agent-based architecture.
+✅ RAG pipeline implemented with strict context-based retrieval.
+✅ FAISS vector database created from curated Python documentation.
+✅ Recursive document ingestion from data/tech_ai/python/
+✅ Basic Python concepts and error patterns included.
+✅ Google Gemini LLM integrated for response generation.
+⚠️ .env intentionally inactive (system environment variables preferred on Windows).
 
 ---
 
@@ -46,11 +47,21 @@ AURA_PLATFORM/
 │   │       ├── rag_pipeline.py
 │   │       ├── config.py
 │   │       └── vectorstore/
+│── data/
+│   └── tech_ai/
+│       └── python/
+│           ├── variables.md
+│           ├── data_types.md
+│           ├── loops.md
+│           ├── functions.md
+│           ├── exceptions.md
+│           └── common_error.md
 │── core/
 │── db/
 │   └── schema.sql
 │── requirements.txt
 │── README.md
+
 ```
 
 ---
@@ -63,6 +74,7 @@ AURA_PLATFORM/
 4. Context is injected into a controlled prompt
 5. Google Gemini generates an answer **only from the retrieved context**
 
+If no relevant context is found, Tech AI explicitly responds that it does not have enough information instead of guessing.
 This design ensures:
 
 * Reduced hallucinations
@@ -129,4 +141,4 @@ Open in browser:
 
 Urvika Singh
 
-> This project is under active development. Current focus is on improving RAG data quality and expanding agent capabilities.
+>  This project is under active development. Current focus is on improving Python RAG data quality and Tech AI response reliability.

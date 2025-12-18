@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -8,18 +7,32 @@ from langchain_community.vectorstores import FAISS
 
 from .config import *
 
-load_dotenv()
-
 
 def load_documents():
     docs = []
-    for file in os.listdir(DOCUMENT_PATH):
-        path = os.path.join(DOCUMENT_PATH, file)
 
-        if file.endswith(".pdf"):
-            docs.extend(PyPDFLoader(path).load())
-        elif file.endswith(".txt") or file.endswith(".md"):
-            docs.extend(TextLoader(path).load())
+    for root, _, files in os.walk(DOCUMENT_PATH):
+        for file in files:
+            path = os.path.join(root, file)
+
+            if file.endswith(".pdf"):
+                docs.extend(PyPDFLoader(path).load())
+
+            elif file.endswith(".txt") or file.endswith(".md"):
+                loaded = TextLoader(path, encoding="utf-8").load()
+
+                # ---- metadata from folder structure ----
+                rel_path = os.path.relpath(path, DOCUMENT_PATH)
+                parts = rel_path.split(os.sep)
+
+                for d in loaded:
+                    d.metadata["source"] = rel_path
+                    d.metadata["language"] = parts[0] if len(parts) > 1 else "general"
+                    d.metadata["topic"] = parts[1] if len(parts) > 2 else "general"
+
+                docs.extend(loaded)
+
+    print(f"Loaded {len(docs)} documents")
     return docs
 
 
@@ -32,6 +45,7 @@ def build_vector_db():
     )
 
     chunks = splitter.split_documents(documents)
+    print(f"Created {len(chunks)} chunks")
 
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"

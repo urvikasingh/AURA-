@@ -8,6 +8,7 @@ DOCUMENT_PATH = os.path.join(PROJECT_ROOT, "data", "tech_ai")
 VECTOR_DB_PATH = os.path.join(BASE_DIR, "vectorstore")
 
 # Embeddings
+# NOTE: Currently using HuggingFace embeddings in code
 EMBEDDING_MODEL = "text-embedding-3-large"
 
 # Gemini LLM
