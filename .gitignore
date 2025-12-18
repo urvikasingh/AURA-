@@ -1,0 +1,37 @@
+# =====================
+# Python cache
+# =====================
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# =====================
+# Virtual environments
+# =====================
+.venv/
+venv/
+
+# =====================
+# Environment variables
+# =====================
+.env
+
+# =====================
+# Vector databases (FAISS)
+# =====================
+backend/agents/tech_ai/vectorstore/
+
+# =====================
+# Database files (MS SQL)
+# =====================
+*.mdf
+*.ldf
+
+# =====================
+# IDE & OS files
+# =====================
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
